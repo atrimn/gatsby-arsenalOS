@@ -8,11 +8,11 @@
 import React, { useEffect } from "react"
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
-import TravelIcon from "../images/travels.svg"
-import ExploreIcon from "../images/explore.svg"
-import SavedIcon from "../images/saved.svg"
-import ChatIcon from "../images/chat.svg"
-import ProfileIcon from "../images/profile.svg"
+import IdentityIcon from "../images/perm_identity-24px.svg"
+import WhatshotIcon from "../images/whatshot-24px.svg"
+import HomeIcon from "../images/home-24px.svg"
+import FavoriteIcon from "../images/favorite-24px.svg"
+import EventIcon from "../images/event-24px.svg"
 import SendIcon from "../images/send.svg"
 
 import Header from "./header"
@@ -49,24 +49,24 @@ const Layout = ({ children, location }) => {
         }}
         className="fixed z-10 mx-auto px-4 bottom-0 flex items-center justify-between h-16 w-screen"
       >
-        <button className="h-4">
-          <img className="h-full " src={TravelIcon} alt="" />
+        <button className="w-6">
+          <img className="h-full w-full" src={IdentityIcon} alt="" />
         </button>
-        <button className="h-4">
-          <img className="h-full" src={ExploreIcon} alt="" />
+        <button className="w-6">
+          <img className="h-full w-full" src={WhatshotIcon} alt="" />
         </button>
-        <button className="h-4">
-          <img className="h-full" src={SavedIcon} alt="" />
+        <button className="w-6">
+          <img className="h-full w-full" src={HomeIcon} alt="" />
         </button>
-        <button className="relative h-4">
-          <img className="h-full" src={ChatIcon} alt="" />
+        <button className="relative w-6">
+          <img className="h-full w-full" src={FavoriteIcon} alt="" />
           <span
             style={{ background: "#F4327F", bottom: "-15px" }}
             className="absolute inline-block bottom-0 rounded-full h-1 w-1"
           ></span>
         </button>
-        <button className="h-4 ">
-          <img className="h-full" src={ProfileIcon} alt="" />
+        <button className="w-6 ">
+          <img className="h-full w-full" src={EventIcon} alt="" />
         </button>
       </footer>
     ) : null

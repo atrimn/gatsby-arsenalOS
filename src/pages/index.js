@@ -25,7 +25,7 @@ const IndexPage = ({ location }) => {
         </div>
         <div className="flex relative flex-col justify-center uppercase text-center  font-semibold items-around  z-10">
           <div className="relative flex flex-col justify-end flex-1  text-white">
-            <h2 className="text-4xl tracking-widest leading-relaxed">Hello!</h2>
+            <h2 className="text-4xl tracking-widest leading-relaxed">Tour</h2>
             <h2
               style={{ marginBottom: 13 }}
               className="text-4xl tracking-widest leading-relaxed"
