@@ -96,7 +96,7 @@ const ExplorePage = ({ location }) => {
           src={Slider}
           alt="slider"
         />
-        <div className="mx-auto h-auto w-screen px-1">
+        <div className="mx-auto h-auto w-screen px-1 ">
           <div className="flex justify-between items-center mb-8 mx-2">
             <h2 className="text-3xl text-white">Featured</h2>
             <button className="flex px-4 justify-around items-center explore-btn-gradient rounded-full w-auto py-1 text-white">
@@ -104,9 +104,15 @@ const ExplorePage = ({ location }) => {
               <img className="h-4 pl-3" src={Arrow} alt="" />
             </button>
           </div>
-          <div className="flex items-start justify-around flex-wrap ">
+          <div
+            style={{ scrollSnapType: "x mandatory" }}
+            className="flex items-start  overflow-scroll"
+          >
             {dummyData.featured.map(item => (
-              <div className="w-5/12 mx-2 card-background-gradient my-2  h-auto rounded-lg bg-gray-400 p-1 h-12">
+              <div
+                style={{ minWidth: 300, scrollSnapAlign: "start" }}
+                className=" mx-2 card-background-gradient my-2  h-auto rounded-lg bg-gray-400 p-1 h-12"
+              >
                 <img
                   className="rounded-lg h-20 w-full object-cover"
                   src={item.img}
