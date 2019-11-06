@@ -139,11 +139,15 @@ const ExplorePage = ({ location }) => {
           >
             {featured.map(item => (
               <div
-                style={{ minWidth: 300, scrollSnapAlign: "start" }}
-                className=" mx-2 card-background-gradient my-2  h-auto rounded-lg bg-gray-400 p-1 h-12"
+                style={{
+                  minWidth: 300,
+                  scrollSnapAlign: "start",
+                  order: item.order,
+                }}
+                className=" mx-2 card-background-gradient my-2  h-64 rounded-lg bg-gray-400 p-1 h-12"
               >
                 <img
-                  className="rounded-lg h-20 w-full object-cover"
+                  className="rounded-lg h-32  w-full object-cover"
                   src={item.main_picture}
                   alt=""
                 />
