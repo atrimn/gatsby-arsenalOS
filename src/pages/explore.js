@@ -1,6 +1,6 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { Link } from "gatsby"
-
+import { getFirebase } from "../Firebase"
 import Layout from "../components/layout"
 import Image from "../components/image"
 import SEO from "../components/seo"
@@ -86,6 +86,35 @@ const dummyData = {
 // break the section downs into components
 
 const ExplorePage = ({ location }) => {
+  const [featured, setFeatured] = useState([])
+
+  const retrieveCollectionAsync = async firestore => {
+    try {
+      // const response = await firestore.collection("Featured").get()
+      // console.log("response")
+      // console.log(response.docs)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  // ON MOUNT
+  useEffect(() => {
+    const lazyFirebase = import("firebase/app")
+    const lazyFirestore = import("firebase/firestore")
+    Promise.all([lazyFirebase]).then(([firebase]) => {
+      const firestore = getFirebase(firebase).firestore()
+      firestore.collection("Featured").onSnapshot(snapshot => {
+        console.log(snapshot.docs.map(doc => doc.data()))
+        setFeatured(snapshot.docs.map(doc => doc.data()))
+      })
+      // const featuredCollection = firestore.collection("Featured").get()
+      // const featuredCollection = retrieveCollectionAsync(firestore)
+
+      // console.log(featuredCollection)
+    })
+  }, [])
+
   return (
     <Layout location={location}>
       <SEO title="Home" />
@@ -108,33 +137,33 @@ const ExplorePage = ({ location }) => {
             style={{ scrollSnapType: "x mandatory" }}
             className="flex items-start  overflow-scroll"
           >
-            {dummyData.featured.map(item => (
+            {featured.map(item => (
               <div
                 style={{ minWidth: 300, scrollSnapAlign: "start" }}
                 className=" mx-2 card-background-gradient my-2  h-auto rounded-lg bg-gray-400 p-1 h-12"
               >
                 <img
                   className="rounded-lg h-20 w-full object-cover"
-                  src={item.img}
+                  src={item.main_picture}
                   alt=""
                 />
                 <div className=" relative h-auto px-2 py-4">
                   <h2 className="font-semibold text-white text-sm tracking-wide">
-                    {item.title}
+                    {item.address_line_1}
                   </h2>
                   <button className="absolute flex justify-end top-0 right-0 my-5 h-4 w-4">
                     <img className="h-full" src={MoreIcon} alt="more" />
                   </button>
                   <div>
                     <p className="text-white text-xs opacity-50 inline mr-2">
-                      {item.price}
+                      ${item.price}
                     </p>
                     <span
                       style={{ background: "#AAA" }}
                       className="rounded h-2 w-2 bg-gray-200 inline-block"
                     />
                     <p className="text-white text-xs opacity-50 inline ml-2">
-                      {item.location}
+                      {item.city}
                     </p>
                   </div>
                 </div>
@@ -178,8 +207,9 @@ const ExplorePage = ({ location }) => {
               </div>
             </div>
             <div className="flex flex-col mt-8 mx-1 pb-32 h-auto ">
-              {dummyData.hotels.map(item => (
+              {dummyData.hotels.map((item, index) => (
                 <div
+                  key={index}
                   style={{ backgroundColor: "#333333" }}
                   className="flex items-center py-4 px-2 rounded-lg my-2 h-auto"
                 >
