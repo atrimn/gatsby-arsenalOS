@@ -87,6 +87,7 @@ const dummyData = {
 
 const ExplorePage = ({ location }) => {
   const [featured, setFeatured] = useState([])
+  const [places, setPlaces] = useState([])
 
   const retrieveCollectionAsync = async firestore => {
     try {
@@ -108,6 +109,11 @@ const ExplorePage = ({ location }) => {
         console.log(snapshot.docs.map(doc => doc.data()))
         setFeatured(snapshot.docs.map(doc => doc.data()))
       })
+
+      firestore.collection("places").onSnapshot(snapshot => {
+        console.log(snapshot.docs.map(doc => doc.data()))
+        setPlaces(snapshot.docs.map(doc => doc.data()))
+      })
       // const featuredCollection = firestore.collection("Featured").get()
       // const featuredCollection = retrieveCollectionAsync(firestore)
 
@@ -125,7 +131,7 @@ const ExplorePage = ({ location }) => {
           src={Slider}
           alt="slider"
         />
-        <div className="mx-auto h-auto w-screen px-1 ">
+        <div className="mx-auto h-auto w-screen">
           <div className="flex justify-between items-center mb-8 mx-2">
             <h2 className="text-3xl text-white">Featured</h2>
             <button className="flex px-4 justify-around items-center explore-btn-gradient rounded-full w-auto py-1 text-white">
@@ -139,6 +145,7 @@ const ExplorePage = ({ location }) => {
           >
             {featured.map(item => (
               <div
+                key={`${item.price}-${item.city}-${item.postal_code}`}
                 style={{
                   minWidth: 300,
                   scrollSnapAlign: "start",
@@ -211,7 +218,7 @@ const ExplorePage = ({ location }) => {
               </div>
             </div>
             <div className="flex flex-col mt-8 mx-1 pb-32 h-auto ">
-              {dummyData.hotels.map((item, index) => (
+              {places.map((item, index) => (
                 <div
                   key={index}
                   style={{ backgroundColor: "#333333" }}
@@ -220,26 +227,26 @@ const ExplorePage = ({ location }) => {
                   <div className="rounded-lg overflow-hidden h-20 w-24 mr-4 bg-gray-200">
                     <img
                       className="h-full w-full  object-cover"
-                      src={item.img}
+                      src={item.main_picture}
                       alt=""
                     />
                   </div>
                   <div className="flex  flex-col">
-                    <h2 className="text-white font-semibold">{item.title}</h2>
+                    <h2 className="text-white font-semibold">
+                      {item.headline}
+                    </h2>
                     <div className="flex mb-2">
                       <p className="pr-3 text-white opacity-50">
-                        {item.discounted}
+                        ${item.price}
                       </p>
                       <p className="line-through text-white opacity-25">
-                        {item.price}
+                        ${item.price_old}
                       </p>
                     </div>
                     <div className="flex justify-between">
                       <div className="flex items-center  justify-between">
                         <img className="h-4 mr-2" src={LocationIcon} alt="" />
-                        <p className="text-white text-xs mr-4">
-                          {item.location}
-                        </p>
+                        <p className="text-white text-xs mr-4">{item.city}</p>
                       </div>
                       <div className="flex items-center justify-between">
                         <img className="h-4 mr-2" src={HeartIcon} alt="" />
