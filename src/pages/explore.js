@@ -160,7 +160,7 @@ const ExplorePage = ({ location }) => {
                 />
                 <div className=" relative h-auto px-2 py-4">
                   <h2 className="font-semibold text-white text-sm tracking-wide">
-                    {item.address_line_1}
+                    {item.headline}
                   </h2>
                   <button className="absolute flex justify-end top-0 right-0 my-5 h-4 w-4">
                     <img className="h-full" src={MoreIcon} alt="more" />
