@@ -104,7 +104,7 @@ const ExplorePage = ({ location }) => {
     const lazyFirestore = import("firebase/firestore")
     Promise.all([lazyFirebase]).then(([firebase]) => {
       const firestore = getFirebase(firebase).firestore()
-      firestore.collection("Featured").onSnapshot(snapshot => {
+      firestore.collection("featured").onSnapshot(snapshot => {
         console.log(snapshot.docs.map(doc => doc.data()))
         setFeatured(snapshot.docs.map(doc => doc.data()))
       })
